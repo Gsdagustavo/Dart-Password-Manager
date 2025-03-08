@@ -1,0 +1,1 @@
+Just a simple password manager project made using Dart
