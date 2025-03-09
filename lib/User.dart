@@ -26,4 +26,19 @@ class User {
   set username(String value) {
     _username = value;
   }
+
+  // return an User if the user exists, otherwise returns null
+  static User? checkIfUserExists(String username, List<User> users) {
+
+    for (User user in users) {
+      if (username == user.username) {
+
+        // user exists
+        return user;
+      }
+    }
+
+    // user does not exist
+    return null;
+  }
 }

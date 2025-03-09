@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Password {
 
   // attributes
@@ -35,5 +37,44 @@ class Password {
     } else {
       print('invalid tag');
     }
+  }
+
+  static String generateRandomID() {
+    const int characters = 15;
+    String possibleCharacters =
+        "ABCDEFGHIKJLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz"
+        "1234567890"
+        "!@#%^&*";
+
+    Random random = Random();
+    String id = '';
+    for (int i = 0; i < characters; i++) {
+      id += possibleCharacters[random.nextInt(possibleCharacters.length)];
+    }
+
+    return id;
+  }
+
+  static bool validatePassword(String password) {
+    const int minLength = 6;
+    const int maxLength = 15;
+
+    if (password.isEmpty) {
+      print('the password cannot be empty');
+      return false;
+    }
+
+    if (password.length > 0 && password.length < minLength) {
+      print('the password is too short');
+      return false;
+    }
+
+    if (password.length > maxLength) {
+      print('the password is too big');
+      return false;
+    }
+
+    return true;
   }
 }
