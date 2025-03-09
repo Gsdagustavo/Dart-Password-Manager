@@ -73,10 +73,65 @@ class User {
 
 List<User> users = [];
 User? loggedUser;
-bool loggedIn = false;
+bool isLoggedIn = false;
 
 void main() {
 
+  // TESTING
+
+  // createAccount('hello123', 'helloworld');
+  // createAccount('1', '1');
+  //
+  // tryLogin('hello123', 'helloworld');
+  // tryLogin('hello123', '12');
+  //
+  // User? u = checkIfUserExists('hello123');
+
+  bool exit = false;
+
+  do {
+
+    if (isLoggedIn) {
+        // TODO: Add password management system
+    } else {
+      stdout.write(
+          'select an option:\n'
+              '[0] Exit\n'
+              '[1] Login\n-> '
+      );
+
+      String input = getStringInput();
+
+      // TODO: Add proper functionalities
+      switch (input) {
+        case '0':
+          exit = true;
+          break;
+        case '1':
+          print('login');
+          break;
+        default:
+          print('invalid option');
+      }
+    }
+
+  } while (!exit);
+}
+
+String getStringInput() {
+  String? input = stdin.readLineSync() ?? '';
+
+  while (input == null) {
+    stdout.write('invalid input, try again: ');
+    input = stdin.readLineSync() ?? '';
+  }
+
+  while (input!.isEmpty) {
+    stdout.write('invalid input, try again: ');
+    input = stdin.readLineSync() ?? '';
+  }
+
+  return input;
 }
 
 String generateRandomID() {
@@ -150,7 +205,7 @@ bool tryLogin(String username, String password) {
     if (password == user.password) {
 
       // logged in
-      loggedIn = true;
+      isLoggedIn = true;
       loggedUser = user;
       print('logged in successfully');
       return true;
@@ -181,18 +236,6 @@ User? checkIfUserExists(String username) {
 
   // user does not exist
   return null;
-}
-
-String getStringInput() {
-  String? input = stdin.readLineSync();
-
-  // try to get a string input while the actual input is invalid
-  while (input == null || input.isEmpty) {
-    stdout.write('invalid input, try again: ');
-    input = stdin.readLineSync();
-  }
-
-  return input;
 }
 
 // prints a list
