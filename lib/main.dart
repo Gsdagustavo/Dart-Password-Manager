@@ -1,75 +1,7 @@
 import 'dart:io';
 import 'dart:math';
-
-class Password {
-
-  // attributes
-  String? _password;
-  int? _id;
-  List<String>? _tags;
-
-  // constructor
-  Password(this._password, this._id);
-
-  // getters and setters
-  int get id => _id!;
-
-  set id(int value) {
-    _id = value;
-  }
-
-  String get password => _password!;
-
-  set password(String value) {
-    _password = value;
-  }
-
-  List<String> get tags => _tags!;
-
-  // function that adds a tag to the tags list
-  void addTag(String tag) {
-
-    if (tag.isNotEmpty) {
-      if (!tags.contains(tag)) {
-        tags.add(tag);
-      } else {
-        print('tag $tag already exists on the list');
-      }
-    } else {
-      print('invalid tag');
-    }
-  }
-}
-
-class User {
-
-  // attributes
-  String? _username;
-  String? _password;
-  String? _id;
-
-  // constructor
-  User(this._username, this._password, this._id);
-
-  // getters and setters
-  String get id => _id!;
-
-  set id(String value) {
-    _id = value;
-  }
-
-  String get password => _password!;
-
-  set password(String value) {
-    _password = value;
-  }
-
-  String get username => _username!;
-
-  set username(String value) {
-    _username = value;
-  }
-}
+import 'User.dart';
+import 'Password.dart';
 
 List<User> users = [];
 User? loggedUser;
