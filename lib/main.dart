@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 class Password {
 
@@ -45,15 +46,15 @@ class User {
   // attributes
   String? _username;
   String? _password;
-  int? _id;
+  String? _id;
 
   // constructor
   User(this._username, this._password, this._id);
 
   // getters and setters
-  int get id => _id!;
+  String get id => _id!;
 
-  set id(int value) {
+  set id(String value) {
     _id = value;
   }
 
@@ -70,7 +71,7 @@ class User {
   }
 }
 
-List<User>? users;
+List<User> users = [];
 User? loggedUser;
 bool loggedIn = false;
 
@@ -78,7 +79,68 @@ void main() {
 
 }
 
-void tryLogin(String username, String password) {
+String generateRandomID() {
+  const int characters = 15;
+  String possibleCharacters =
+      "ABCDEFGHIKJLMNOPQRSTUVWXYZ"
+      "abcdefghijklmnopqrstuvwxyz"
+      "1234567890"
+      "!@#%^&*";
+
+  Random random = Random();
+  String id = '';
+  for (int i = 0; i < characters; i++) {
+    id += possibleCharacters[random.nextInt(possibleCharacters.length)];
+  }
+
+  return id;
+}
+
+bool validatePassword(String password) {
+  const int minLength = 6;
+  const int maxLength = 15;
+
+  if (password.isEmpty) {
+    print('the password cannot be empty');
+    return false;
+  }
+
+  if (password.length > 0 && password.length < minLength) {
+    print('the password is too short');
+    return false;
+  }
+
+  if (password.length > maxLength) {
+    print('the password is too big');
+    return false;
+  }
+
+  return true;
+}
+
+bool createAccount(String username, String password) {
+  User? checkUser = checkIfUserExists(username);
+
+  // password is invalid
+  if (!validatePassword(password)) {
+    return false;
+  }
+
+  if (checkUser == null) {
+
+    String id = generateRandomID();
+    User user = new User(username, password, id);
+    users.add(user);
+    print('account with username $username created');
+    return true;
+
+  } else {
+    print('account already exists');
+    return false;
+  }
+}
+
+bool tryLogin(String username, String password) {
   User? user = checkIfUserExists(username);
 
   // check if the user exists
@@ -91,25 +153,25 @@ void tryLogin(String username, String password) {
       loggedIn = true;
       loggedUser = user;
       print('logged in successfully');
-      return;
+      return true;
     } else {
 
       // password incorrect for the user
       print('invalid password for user $username');
-      return;
+      return false;
     }
   } else {
 
     // user does not exist
     print('user $username does not exist');
-    return;
+    return false;
   }
 }
 
 // return an User if the user exists, otherwise returns null
 User? checkIfUserExists(String username) {
 
-  for (User user in users!) {
+  for (User user in users) {
     if (username == user.username) {
 
       // user exists
