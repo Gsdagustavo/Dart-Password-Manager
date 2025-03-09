@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:math';
-import 'dart:math' as math;
 
 class Password {
   String? _password;
