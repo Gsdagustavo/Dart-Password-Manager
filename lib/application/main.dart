@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'User.dart';
-import 'Password.dart';
+import '../entities/User.dart';
+import '../util/Password.dart';
 
 List<User> users = [];
 User? loggedUser;
