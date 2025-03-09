@@ -62,12 +62,11 @@ void main() {
 
 }
 
-
 // return an User if the user exists, otherwise returns null
-User? checkIfUserExists(String username, String password) {
+User? checkIfUserExists(String username) {
 
   for (User user in users!) {
-    if ((username == user.username) && (password == user.password)) {
+    if (username == user.username) {
 
       // user exists
       return user;
