@@ -30,8 +30,54 @@ class Password {
   }
 }
 
+class User {
+  String? _username;
+  String? _password;
+  int? _id;
+
+  User(this._username, this._password, this._id);
+
+  int get id => _id!;
+
+  set id(int value) {
+    _id = value;
+  }
+
+  String get password => _password!;
+
+  set password(String value) {
+    _password = value;
+  }
+
+  String get username => _username!;
+
+  set username(String value) {
+    _username = value;
+  }
+}
+
+List<User>? users;
+User? loggedUser;
+bool loggedIn = false;
+
 void main() {
 
+}
+
+
+// return an User if the user exists, otherwise returns null
+User? checkIfUserExists(String username, String password) {
+
+  for (User user in users!) {
+    if ((username == user.username) && (password == user.password)) {
+
+      // user exists
+      return user;
+    }
+  }
+
+  // user does not exist
+  return null;
 }
 
 String getStringInput() {
