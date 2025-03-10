@@ -62,7 +62,12 @@ void main() {
           stdout.write('password for user $username: ');
           String password = getStringInput();
 
-          createAccount(username, password);
+          bool accountCreated = createAccount(username, password);
+
+          if (!accountCreated) {
+            break;
+          }
+
           stdout.write('account with username $username created successfully! do you want to login? [Y/N]: ');
           String opc = getStringInput().toLowerCase();
 
