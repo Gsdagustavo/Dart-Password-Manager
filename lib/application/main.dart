@@ -9,6 +9,9 @@ bool isLoggedIn = false;
 void main() {
   bool exit = false;
 
+  User test = User('test123', 'test123', Password.generateRandomID());
+  users.add(test);
+
   do {
 
     if (isLoggedIn) {
@@ -28,7 +31,20 @@ void main() {
           exit = true;
           break;
         case '1':
-          print('login');
+          stdout.write('=-=-=-=-=- LOGIN =-=-=-=-=-\nuser: ');
+          String username = getStringInput();
+          User? user = User.checkIfUserExists(username, users);
+
+          while (user == null) {
+            stdout.write('the user $username does not exist, try again: ');
+            username = getStringInput();
+            user = User.checkIfUserExists(username, users);
+          }
+
+          stdout.write('password for user $username: ');
+          String password = getStringInput();
+
+          tryLogin(username, password);
           break;
         default:
           print('invalid option');
