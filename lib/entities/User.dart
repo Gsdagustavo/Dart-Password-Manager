@@ -1,3 +1,5 @@
+import '../util/Password.dart';
+
 class User {
 
   // attributes
@@ -6,7 +8,9 @@ class User {
   String? _id;
 
   // constructor
-  User(this._username, this._password, this._id);
+  User(this._username, this._password) {
+    this._id = Password.generateRandomID();
+  }
 
   // getters and setters
   String get id => _id!;

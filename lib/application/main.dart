@@ -9,18 +9,21 @@ bool isLoggedIn = false;
 void main() {
   bool exit = false;
 
-  User test = User('test123', 'test123', Password.generateRandomID());
+  User test = User('test123', 'test123');
   users.add(test);
 
   do {
 
     if (isLoggedIn) {
         // TODO: Add password management system
+
     } else {
       stdout.write(
           'select an option:\n'
               '[0] Exit\n'
-              '[1] Login\n-> '
+              '[1] Login\n'
+              '[2] Sign in\n'
+              '-> '
       );
 
       String input = getStringInput();
@@ -35,10 +38,9 @@ void main() {
           String username = getStringInput();
           User? user = User.checkIfUserExists(username, users);
 
-          while (user == null) {
-            stdout.write('the user $username does not exist, try again: ');
-            username = getStringInput();
-            user = User.checkIfUserExists(username, users);
+          if (user == null) {
+            print('the user $username does not exist');
+            break;
           }
 
           stdout.write('password for user $username: ');
@@ -46,12 +48,48 @@ void main() {
 
           tryLogin(username, password);
           break;
+        case '2':
+          stdout.write('=-=-=-=-=- SIGN IN =-=-=-=-=-\nusername: ');
+          String username = getStringInput();
+
+          User? user = User.checkIfUserExists(username, users);
+
+          if (user != null) {
+            print('that username is already taken');
+            break;
+          }
+
+          stdout.write('password for user $username: ');
+          String password = getStringInput();
+
+          createAccount(username, password);
+          stdout.write('account with username $username created successfully! do you want to login? [Y/N]: ');
+          String opc = getStringInput().toLowerCase();
+
+          user = User(username, password);
+
+          switch (opc) {
+            case 'y':
+              loggedUser = user;
+              isLoggedIn = true;
+              print('logged in successfully');
+              break;
+            case 'n':
+              break;
+            default:
+              print('invalid option');
+              break;
+          }
+
+          break;
         default:
           print('invalid option');
       }
     }
 
   } while (!exit);
+
+  print('thank you for using my program!');
 }
 
 String getStringInput() {
@@ -80,8 +118,7 @@ bool createAccount(String username, String password) {
 
   if (checkUser == null) {
 
-    String id = Password.generateRandomID();
-    User user = new User(username, password, id);
+    User user = new User(username, password);
     users.add(user);
     print('account with username $username created');
     return true;
