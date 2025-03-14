@@ -46,7 +46,7 @@ class User {
   static User? checkIfUserExists(String username, List<User> users) {
 
     for (User user in users) {
-      if (username == user.username) {
+      if (username.trim() == user.username) {
 
         // user exists
         return user;

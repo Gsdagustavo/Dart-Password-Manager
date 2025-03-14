@@ -10,10 +10,10 @@ void main() {
   bool exit = false;
 
   // for testing purposes
-  User test = User('test123', 'test123');
-  users.add(test);
-  loggedUser = test;
-  isLoggedIn = true;
+  // User test = User('test123', 'test123');
+  // users.add(test);
+  // loggedUser = test;
+  // isLoggedIn = true;
 
   do {
 
@@ -78,6 +78,7 @@ void main() {
               print(password);
             }
           }
+          print('');
 
           break;
         case '3':
@@ -91,7 +92,7 @@ void main() {
             print('\nFound passwords: ');
             passwordSearched.forEach(print);
           } else {
-            print('\nNo password with tag $tag was found');
+            print('\nNo passwords with tag $tag were found');
           }
 
           // breaks a new line
@@ -99,7 +100,7 @@ void main() {
 
           break;
         default:
-          
+
           print('Invalid option\n');
           break;
       }
@@ -165,7 +166,7 @@ void main() {
 
             print('Logged in successfully\n');
           } else if (opc == 'n') {
-
+            print('');
           } else {
             print('Invalid option\n');
           }
@@ -209,7 +210,7 @@ bool createAccount(String username, String password) {
 
     User user = new User(username, password);
     users.add(user);
-    print('Account with username $username created');
+    // print('Account with username $username created');
     return true;
 
   } else {
@@ -230,7 +231,8 @@ bool tryLogin(String username, String password) {
       // logged in
       isLoggedIn = true;
       loggedUser = user;
-      print('Logged in successfully');
+      String uName = user.username;
+      print('\nLogged in successfully as $uName!\n');
       return true;
     } else {
 
