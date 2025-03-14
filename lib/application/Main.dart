@@ -4,12 +4,15 @@ import '../util/AccountUtils.dart';
 import '../util/Input.dart';
 import '../util/Password.dart';
 
+// variables to keep track of users in the list and the logged user
 List<User> users = [];
 User? loggedUser;
 
+// main function
 void main() {
   bool exit = false;
 
+  // main loop
   do {
 
     // user is logged in
@@ -101,6 +104,7 @@ void main() {
           break;
       }
 
+      // user is not logged in
     } else {
       stdout.write(
           '-- SELECT AN OPTION --:\n'
@@ -112,7 +116,6 @@ void main() {
 
       String input = Input.getStringInput();
 
-      // TODO: Add proper functionalities
       switch (input) {
         case '0':
           exit = true;
@@ -181,6 +184,3 @@ void main() {
 
   print('\nThank you for using my program!\n');
 }
-
-
-

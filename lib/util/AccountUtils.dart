@@ -5,6 +5,7 @@ class AccountUtils {
 
   AccountUtils();
 
+  // function to create an account based on some basic user inputs
   static User? createAccount(String username, String password, List<User> users) {
     User? checkUser = User.checkIfUserExists(username, users);
 
@@ -26,6 +27,7 @@ class AccountUtils {
     }
   }
 
+  // returns a user if the login is successful, otherwise returns null
   static User? tryLogin(String username, String password, List<User> users) {
     User? user = User.checkIfUserExists(username, users);
 

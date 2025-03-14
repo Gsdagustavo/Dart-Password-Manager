@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../util/Password.dart';
 
 class User {
@@ -11,7 +13,7 @@ class User {
 
   // constructor
   User(this._username, this._password) {
-    this._id = Password.generateRandomID();
+    this._id = User.generateRandomID();
   }
 
   // getters and setters
@@ -33,6 +35,7 @@ class User {
     _username = value;
   }
 
+  // adds a new password to the user password list if that password does not exist already
   void addNewPassword(Password password) {
     if (!passwords.contains(password)) {
       passwords.add(password);
@@ -55,6 +58,24 @@ class User {
 
     // user does not exist
     return null;
+  }
+
+  // generate a random id to be used
+  static String generateRandomID() {
+    const int characters = 15;
+    String possibleCharacters =
+        "ABCDEFGHIKJLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz"
+        "1234567890"
+        "!@#%^&*";
+
+    Random random = Random();
+    String id = '';
+    for (int i = 0; i < characters; i++) {
+      id += possibleCharacters[random.nextInt(possibleCharacters.length)];
+    }
+
+    return id;
   }
 
 }

@@ -32,23 +32,7 @@ class Password {
     }
   }
 
-  static String generateRandomID() {
-    const int characters = 15;
-    String possibleCharacters =
-        "ABCDEFGHIKJLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz"
-        "1234567890"
-        "!@#%^&*";
-
-    Random random = Random();
-    String id = '';
-    for (int i = 0; i < characters; i++) {
-      id += possibleCharacters[random.nextInt(possibleCharacters.length)];
-    }
-
-    return id;
-  }
-
+  // validate a given string input following some requirements
   static bool validatePassword(String password) {
     const int minLength = 6;
     const int maxLength = 15;
@@ -71,6 +55,7 @@ class Password {
     return true;
   }
 
+  // returns a list of passwords that contains the tag given
   static List<Password> findByTag(String tagSearched, List<Password>? passwords) {
     if (passwords == null) {
       throw new Exception('Invalid password list');

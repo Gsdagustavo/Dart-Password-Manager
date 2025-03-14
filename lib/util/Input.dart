@@ -3,8 +3,7 @@ import 'dart:io';
 // static class for input handling
 class Input {
 
-
-
+  // returns a string handling the user input
   static String getStringInput() {
     String? input = stdin.readLineSync() ?? '';
 
