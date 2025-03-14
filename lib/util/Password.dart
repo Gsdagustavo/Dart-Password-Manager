@@ -71,8 +71,26 @@ class Password {
     return true;
   }
 
+  static List<Password> findByTag(String tagSearched, List<Password>? passwords) {
+    if (passwords == null) {
+      throw new Exception('Invalid password list');
+    }
+
+    List<Password> resultPasswords = [];
+
+    for (Password password in passwords) {
+      for (String tag in password.tags) {
+        if (tagSearched == tag) {
+          resultPasswords.add(password);
+        }
+      }
+    }
+
+    return resultPasswords;
+  }
+
   @override
   String toString() {
-    return 'Password{_password: $_password, _tags: $_tags}';
+    return '$password, Tags: $tags';
   }
 }

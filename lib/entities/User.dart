@@ -37,7 +37,8 @@ class User {
     if (!passwords.contains(password)) {
       passwords.add(password);
     } else {
-      print('that password is already assigned to user $username');
+      // this is just a joke
+      print('That password is already assigned to user $username');
     }
   }
 
