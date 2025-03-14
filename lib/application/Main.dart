@@ -1,6 +1,8 @@
 import 'dart:io';
 import '../entities/User.dart';
+import '../util/Input.dart';
 import '../util/Password.dart';
+import '../util/input.dart';
 
 List<User> users = [];
 User? loggedUser;
@@ -29,7 +31,7 @@ void main() {
               '-> '
       );
 
-      String input = getStringInput();
+      String input = Input.getStringInput();
 
       switch (input) {
         case '0':
@@ -39,7 +41,7 @@ void main() {
           break;
         case '1':
           stdout.write('=-=-=-=-=- ADD NEW PASSWORD =-=-=-=-=-\nEnter password: ');
-          String newPassword = getStringInput();
+          String newPassword = Input.getStringInput();
 
           if (!Password.validatePassword(newPassword)) {
             break;
@@ -49,14 +51,14 @@ void main() {
           loggedUser?.addNewPassword(password);
 
           stdout.write('Do you want to add tags for the password $newPassword? [Y/N]: ');
-          String input = getStringInput().toLowerCase();
+          String input = Input.getStringInput().toLowerCase();
 
           if (input == 'y') {
             String tag = '';
             do {
 
               stdout.write('Enter a tag (empty space to exit): ');
-              tag = getStringInput();
+              tag = Input.getStringInput();
 
               if (!(tag == ' ')) {
                 password.addTag(tag);
@@ -84,7 +86,7 @@ void main() {
         case '3':
 
           stdout.write('=-=-=-=-=- SEARCH BY TAG =-=-=-=-=-\nEnter tag to search: ');
-          String tag = getStringInput();
+          String tag = Input.getStringInput();
 
           List<Password> passwordSearched = Password.findByTag(tag, loggedUser?.passwords);
         
@@ -132,13 +134,13 @@ void main() {
           }
 
           stdout.write('Password for user $username: ');
-          String password = getStringInput();
+          String password = Input.getStringInput();
 
           tryLogin(username, password);
           break;
         case '2':
           stdout.write('=-=-=-=-=- SIGN IN =-=-=-=-=-\nUsername: ');
-          String username = getStringInput();
+          String username = Input.getStringInput();
 
           User? user = User.checkIfUserExists(username, users);
 
@@ -148,7 +150,7 @@ void main() {
           }
 
           stdout.write('Password for user $username: ');
-          String password = getStringInput();
+          String password = Input.getStringInput();
 
           bool accountCreated = createAccount(username, password);
 
@@ -158,7 +160,7 @@ void main() {
 
           user = User(username, password);
           stdout.write('Account with username $username created successfully! Do you want to login? [Y/N]: ');
-          String opc = getStringInput().toLowerCase();
+          String opc = Input.getStringInput().toLowerCase();
 
           if (opc == 'y') {
             loggedUser = user;
