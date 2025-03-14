@@ -4,31 +4,24 @@ class Password {
 
   // attributes
   String? _password;
-  int? _id;
-  List<String>? _tags;
+  List<String> _tags = [];
 
   // constructor
-  Password(this._password, this._id);
+  Password(this._password);
 
   // getters and setters
-  int get id => _id!;
-
-  set id(int value) {
-    _id = value;
-  }
-
   String get password => _password!;
 
   set password(String value) {
     _password = value;
   }
 
-  List<String> get tags => _tags!;
+  List<String> get tags => _tags;
 
   // function that adds a tag to the tags list
   void addTag(String tag) {
 
-    if (tag.isNotEmpty) {
+    if (!tag.isEmpty) {
       if (!tags.contains(tag)) {
         tags.add(tag);
       } else {
@@ -76,5 +69,10 @@ class Password {
     }
 
     return true;
+  }
+
+  @override
+  String toString() {
+    return 'Password{_password: $_password, _tags: $_tags}';
   }
 }

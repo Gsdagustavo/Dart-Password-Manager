@@ -7,6 +7,8 @@ class User {
   String? _password;
   String? _id;
 
+  List<Password> passwords = [];
+
   // constructor
   User(this._username, this._password) {
     this._id = Password.generateRandomID();
@@ -31,6 +33,14 @@ class User {
     _username = value;
   }
 
+  void addNewPassword(Password password) {
+    if (!passwords.contains(password)) {
+      passwords.add(password);
+    } else {
+      print('that password is already assigned to user $username');
+    }
+  }
+
   // return an User if the user exists, otherwise returns null
   static User? checkIfUserExists(String username, List<User> users) {
 
@@ -45,4 +55,5 @@ class User {
     // user does not exist
     return null;
   }
+
 }

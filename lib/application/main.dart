@@ -11,11 +11,78 @@ void main() {
 
   User test = User('test123', 'test123');
   users.add(test);
+  loggedUser = test;
+  isLoggedIn = true;
 
   do {
 
     if (isLoggedIn) {
         // TODO: Add password management system
+      stdout.write(
+          'select an option:\n'
+              '[0] Log off\n'
+              '[1] Add a new password\n'
+              '[2] Show all passwords\n'
+              '[3] Search password by tag\n'
+              '[4] Remove a password\n'
+              '-> '
+      );
+
+      String input = getStringInput();
+
+      switch (input) {
+        case '0':
+          loggedUser = null;
+          isLoggedIn = false;
+
+          break;
+        case '1':
+          stdout.write('=-=-=-=-=- ADD NEW PASSWORD =-=-=-=-=-\nEnter password: ');
+          String newPassword = getStringInput();
+
+          if (!Password.validatePassword(newPassword)) {
+            break;
+          }
+
+          Password password = Password(newPassword);
+          loggedUser?.addNewPassword(password);
+
+          stdout.write('do you want to add tags for the password $newPassword? [Y/N]: ');
+          String input = getStringInput().toLowerCase();
+
+          if (input == 'y') {
+            String tag = '';
+            do {
+
+              stdout.write('enter a tag (or enter an empty space to exit): ');
+              tag = getStringInput();
+
+              if (!(tag == ' ')) {
+                password.addTag(tag);
+              }
+
+            } while (tag != ' ');
+          }
+
+          print('password added successfully\n');
+
+          break;
+        case '2':
+
+          print('showing all passwords:\n');
+
+          List<Password>? passwords = loggedUser?.passwords;
+          if (passwords != null) {
+            for (Password password in passwords) {
+              print(password);
+            }
+          }
+
+          break;
+        default:
+          print('invalid option\n');
+          break;
+      }
 
     } else {
       stdout.write(
@@ -39,7 +106,7 @@ void main() {
           User? user = User.checkIfUserExists(username, users);
 
           if (user == null) {
-            print('the user $username does not exist');
+            print('the user $username does not exist\n');
             break;
           }
 
@@ -55,7 +122,7 @@ void main() {
           User? user = User.checkIfUserExists(username, users);
 
           if (user != null) {
-            print('that username is already taken');
+            print('that username is already taken\n');
             break;
           }
 
@@ -77,24 +144,24 @@ void main() {
             case 'y':
               loggedUser = user;
               isLoggedIn = true;
-              print('logged in successfully');
+              print('logged in successfully\n');
               break;
             case 'n':
               break;
             default:
-              print('invalid option');
+              print('invalid option\n');
               break;
           }
 
           break;
         default:
-          print('invalid option');
+          print('invalid option\n');
       }
     }
 
   } while (!exit);
 
-  print('thank you for using my program!');
+  print('thank you for using my program!\n');
 }
 
 String getStringInput() {
