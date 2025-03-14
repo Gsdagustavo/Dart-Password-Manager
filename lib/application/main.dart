@@ -182,22 +182,6 @@ void main() {
   print('\nThank you for using my program!\n');
 }
 
-String getStringInput() {
-  String? input = stdin.readLineSync() ?? '';
-
-  while (input == null) {
-    stdout.write('Invalid input, try again: ');
-    input = stdin.readLineSync() ?? '';
-  }
-
-  while (input!.isEmpty) {
-    stdout.write('Invalid input, try again: ');
-    input = stdin.readLineSync() ?? '';
-  }
-
-  return input;
-}
-
 bool createAccount(String username, String password) {
   User? checkUser = User.checkIfUserExists(username, users);
 
