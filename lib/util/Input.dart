@@ -3,6 +3,8 @@ import 'dart:io';
 // static class for input handling
 class Input {
 
+
+
   static String getStringInput() {
     String? input = stdin.readLineSync() ?? '';
 
@@ -18,4 +20,6 @@ class Input {
 
     return input;
   }
+
+  Input();
 }

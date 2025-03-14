@@ -1,25 +1,19 @@
 import 'dart:io';
 import '../entities/User.dart';
+import '../util/AccountUtils.dart';
 import '../util/Input.dart';
 import '../util/Password.dart';
-import '../util/input.dart';
 
 List<User> users = [];
 User? loggedUser;
-bool isLoggedIn = false;
 
 void main() {
   bool exit = false;
 
-  // for testing purposes
-  // User test = User('test123', 'test123');
-  // users.add(test);
-  // loggedUser = test;
-  // isLoggedIn = true;
-
   do {
 
-    if (isLoggedIn) {
+    // user is logged in
+    if (loggedUser != null) {
         // TODO: Add password management system
       stdout.write(
           '---- SELECT AN OPTION ----\n'
@@ -36,7 +30,7 @@ void main() {
       switch (input) {
         case '0':
           loggedUser = null;
-          isLoggedIn = false;
+          print('');
 
           break;
         case '1':
@@ -116,7 +110,7 @@ void main() {
               '-> '
       );
 
-      String input = getStringInput();
+      String input = Input.getStringInput();
 
       // TODO: Add proper functionalities
       switch (input) {
@@ -125,7 +119,7 @@ void main() {
           break;
         case '1':
           stdout.write('=-=-=-=-=- LOGIN =-=-=-=-=-\nUser: ');
-          String username = getStringInput();
+          String username = Input.getStringInput();
           User? user = User.checkIfUserExists(username, users);
 
           if (user == null) {
@@ -136,7 +130,12 @@ void main() {
           stdout.write('Password for user $username: ');
           String password = Input.getStringInput();
 
-          tryLogin(username, password);
+          user = AccountUtils.tryLogin(username, password, users);
+
+          if (user != null) {
+            loggedUser = user;
+          }
+
           break;
         case '2':
           stdout.write('=-=-=-=-=- SIGN IN =-=-=-=-=-\nUsername: ');
@@ -152,9 +151,9 @@ void main() {
           stdout.write('Password for user $username: ');
           String password = Input.getStringInput();
 
-          bool accountCreated = createAccount(username, password);
+          User? accountCreated = AccountUtils.createAccount(username, password, users);
 
-          if (!accountCreated) {
+          if (accountCreated == null) {
             break;
           }
 
@@ -164,7 +163,6 @@ void main() {
 
           if (opc == 'y') {
             loggedUser = user;
-            isLoggedIn = true;
 
             print('Logged in successfully\n');
           } else if (opc == 'n') {
@@ -184,52 +182,5 @@ void main() {
   print('\nThank you for using my program!\n');
 }
 
-bool createAccount(String username, String password) {
-  User? checkUser = User.checkIfUserExists(username, users);
 
-  // password is invalid
-  if (!Password.validatePassword(password)) {
-    return false;
-  }
 
-  if (checkUser == null) {
-
-    User user = new User(username, password);
-    users.add(user);
-    // print('Account with username $username created');
-    return true;
-
-  } else {
-    print('Account already exists');
-    return false;
-  }
-}
-
-bool tryLogin(String username, String password) {
-  User? user = User.checkIfUserExists(username, users);
-
-  // check if the user exists
-  if (user != null) {
-
-    // check if user password is the same as the entered password
-    if (password == user.password) {
-
-      // logged in
-      isLoggedIn = true;
-      loggedUser = user;
-      String uName = user.username;
-      print('\nLogged in successfully as $uName!\n');
-      return true;
-    } else {
-
-      // password incorrect for the user
-      print('Invalid password for user $username');
-      return false;
-    }
-  } else {
-
-    // user does not exist
-    print('User $username does not exist');
-    return false;
-  }
-}
