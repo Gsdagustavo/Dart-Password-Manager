@@ -35,6 +35,17 @@ class User {
     _username = value;
   }
 
+  void printPasswords() {
+    if (passwords.isEmpty) {
+      print('No passwords for user $username were found');
+      return;
+    }
+
+    for (int i = 1; i <= passwords.length; i++) {
+      print('$i. ${passwords[i - 1]}');
+    }
+  }
+
   // adds a new password to the user password list if that password does not exist already
   void addNewPassword(Password password) {
     if (!passwords.contains(password)) {
@@ -44,6 +55,28 @@ class User {
       print('That password is already assigned to user $username');
     }
   }
+
+  bool removePassword(int index) {
+    try {
+      passwords.removeAt(index);
+      return true;
+    } catch (e) {
+      print('error: $e');
+      return false;
+    }
+  }
+
+  // void removePasswordByReference(Password targetPassword) {
+  //   for (Password password in passwords) {
+  //     if (password.password == targetPassword.password) {
+  //       passwords.remove(password);
+  //       print('Password $password removed successfully');
+  //       return;
+  //     }
+  //   }
+  //
+  //   print('No password $password was found for user $username');
+  // }
 
   // return an User if the user exists, otherwise returns null
   static User? checkIfUserExists(String username, List<User> users) {

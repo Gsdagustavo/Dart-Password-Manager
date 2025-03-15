@@ -168,6 +168,28 @@ void main() {
           }
 
           break;
+
+        case '5':
+
+          if (loggedUser!.passwords.isEmpty) {
+            print('No passwords for user $loggedUser were found');
+            break;
+          }
+
+          print('=-=--=-=- REMOVE PASSWORD =-=-=-=-=-');
+
+          loggedUser!.printPasswords();
+          stdout.write('Select password to remove [1 - ${loggedUser!.passwords.length}]: ');
+          int input = Input.getIntInput();
+
+          if (loggedUser!.removePassword(input - 1)) {
+            print('Password removed successfully\n');
+            break;
+          }
+
+          print('Password could not be removed\n');
+
+          break;
         default:
 
           print('Invalid option\n');
