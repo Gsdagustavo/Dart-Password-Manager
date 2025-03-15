@@ -11,6 +11,11 @@ User? loggedUser;
 // main function
 void main() {
   bool exit = false;
+  User testUser = User('test123', 'test123');
+  users.add(testUser);
+  loggedUser = testUser;
+
+  testUser.addNewPassword(Password('test123'));
 
   // main loop
   do {

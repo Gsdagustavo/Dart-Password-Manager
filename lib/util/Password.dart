@@ -76,6 +76,6 @@ class Password {
 
   @override
   String toString() {
-    return '$password, Tags: $tags';
+    return 'Password: $password, Tags: $tags';
   }
 }

@@ -87,4 +87,9 @@ class User {
 
     return null;
   }
+
+  @override
+  String toString() {
+    return 'Username: $username, ID: $id';
+  }
 }
