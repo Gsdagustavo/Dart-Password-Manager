@@ -20,5 +20,5 @@ class Input {
     return input;
   }
 
-  Input();
+
 }

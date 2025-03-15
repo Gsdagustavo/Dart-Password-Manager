@@ -78,4 +78,13 @@ class User {
     return id;
   }
 
+  static Password? checkIfPasswordExists(Password targetPassword, List<Password> passwords) {
+    for (Password password in passwords) {
+      if (password.password == targetPassword.password) {
+        return password;
+      }
+    }
+
+    return null;
+  }
 }

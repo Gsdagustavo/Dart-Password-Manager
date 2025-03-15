@@ -17,14 +17,14 @@ void main() {
 
     // user is logged in
     if (loggedUser != null) {
-        // TODO: Add password management system
       stdout.write(
           '---- SELECT AN OPTION ----\n'
               '[0] Log off\n'
               '[1] Add a new password\n'
               '[2] Show all passwords\n'
               '[3] Search password by tag\n'
-              '[4] Remove a password\n'
+              '[4] Add tag to a password\n'
+              '[5] Remove a password\n'
               '-> '
       );
 
@@ -45,11 +45,19 @@ void main() {
           }
 
           Password password = Password(newPassword);
+
+          // means that the password already exists
+          if (User.checkIfPasswordExists(password, loggedUser!.passwords) != null) {
+            print('That password already exists\n');
+            break;
+          }
+
           loggedUser?.addNewPassword(password);
 
           stdout.write('Do you want to add tags for the password $newPassword? [Y/N]: ');
           String input = Input.getStringInput().toLowerCase();
 
+          // add tags to the password
           if (input == 'y') {
             String tag = '';
             do {
@@ -96,6 +104,30 @@ void main() {
 
           // breaks a new line
           print('');
+
+          break;
+        case '4':
+
+          print('=-=-=-=-=- ADD TAGS =-=-=-=-=-');
+          if (loggedUser!.passwords == null) {
+            print('You don''t have any passwords stored!');
+            break;
+          }
+
+          for (Password password in loggedUser!.passwords) {
+            print(password);
+          }
+
+          // prints all passwords
+          int passwords = loggedUser!.passwords.length;
+          for (int i = 1; i < passwords; i++) {
+            print('$i. ' + loggedUser!.passwords[i - 1].toString());
+          }
+
+          stdout.write('Select a password do add a tag [1 - $passwords]: ');
+          String input = Input.getStringInput();
+
+          // Password? passwordExists = User.checkIfPasswordExists(targetPassword);
 
           break;
         default:
