@@ -59,17 +59,17 @@ void main() {
 
           // add tags to the password
           if (input == 'y') {
-            String tag = '';
-            do {
+            while (true) {
+              // stdout.write('Enter a tag (empty space to exit): ');
+              String? tag = Input.getTagInput();
 
-              stdout.write('Enter a tag (empty space to exit): ');
-              tag = Input.getStringInput();
-
-              if (!(tag == ' ')) {
+              if (tag == ' ' || tag == null) {
+                break;
+              } else {
                 password.addTag(tag);
               }
 
-            } while (tag != ' ');
+            }
           }
 
           print('\nPassword added successfully!\n');
@@ -78,6 +78,10 @@ void main() {
         case '2':
 
           print('=-=-=-=-=- SHOWING ALL PASSWORDS =-=-=-=-=-:\n');
+          if (loggedUser!.passwords.length == 0) {
+            print('No passwords found for user $loggedUser');
+            break;
+          }
 
           List<Password>? passwords = loggedUser?.passwords;
           if (passwords != null) {
@@ -114,20 +118,49 @@ void main() {
             break;
           }
 
-          for (Password password in loggedUser!.passwords) {
-            print(password);
-          }
-
           // prints all passwords
           int passwords = loggedUser!.passwords.length;
-          for (int i = 1; i < passwords; i++) {
-            print('$i. ' + loggedUser!.passwords[i - 1].toString());
+          for (int i = 0; i < passwords; i++) {
+            print('${i + 1}. ${loggedUser!.passwords[i].toString()}');
           }
 
           stdout.write('Select a password do add a tag [1 - $passwords]: ');
-          String input = Input.getStringInput();
+          int input = Input.getIntInput();
+          Password? password = null;
 
-          // Password? passwordExists = User.checkIfPasswordExists(targetPassword);
+          try {
+            password = loggedUser!.passwords[input - 1];
+          } catch (e) {
+            print('error: $e');
+            break;
+          }
+
+          // if ((input <= 0) || (input > loggedUser!.passwords.length)) {
+          //   print('Invalid password');
+          //   break;
+          // }
+
+          if (!loggedUser!.passwords.contains(password)) {
+            print('invalid password');
+          }
+
+          try {
+            String pass = password.password;
+            print('Password selected: $pass');
+          } catch (e) {
+            print('error: $e');
+          }
+
+          while (true) {
+            // stdout.write('Enter a tag (empty space to exit): ');
+            String? tag = Input.getTagInput();
+
+            if (tag == ' ' || tag == null) {
+              break;
+            } else {
+              password.addTag(tag);
+            }
+          }
 
           break;
         default:

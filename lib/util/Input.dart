@@ -20,5 +20,30 @@ class Input {
     return input;
   }
 
+  static int getIntInput() {
 
+    while (true) {
+      String stringInput = getStringInput();
+      int? intInput = int.tryParse(stringInput);
+
+      if (intInput != null) {
+        return intInput;
+      }
+
+      stdout.write('Invalid input. Please enter an integer: ');
+    }
+  }
+
+  static String? getTagInput() {
+
+    String tag = '';
+    stdout.write('Enter a tag (empty space to exit): ');
+    tag = Input.getStringInput();
+
+    if (tag.isNotEmpty) {
+      return tag;
+    } else {
+      return null;
+    }
+  }
 }
