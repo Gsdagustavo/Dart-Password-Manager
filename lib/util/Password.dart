@@ -24,6 +24,7 @@ class Password {
     if (!tag.isEmpty) {
       if (!tags.contains(tag)) {
         tags.add(tag);
+        print('Tag added successfully!');
       } else {
         print('tag $tag already exists on the list');
       }

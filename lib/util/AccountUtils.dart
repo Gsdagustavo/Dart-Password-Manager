@@ -3,8 +3,6 @@ import 'Password.dart';
 
 class AccountUtils {
 
-  AccountUtils();
-
   // function to create an account based on some basic user inputs
   static User? createAccount(String username, String password, List<User> users) {
     User? checkUser = User.checkIfUserExists(username, users);

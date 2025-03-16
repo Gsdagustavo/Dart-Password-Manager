@@ -37,7 +37,7 @@ class User {
 
   void printPasswords() {
     if (passwords.isEmpty) {
-      print('No passwords for user $username were found');
+      print('No passwords for user $username were found\n');
       return;
     }
 
@@ -61,22 +61,10 @@ class User {
       passwords.removeAt(index);
       return true;
     } catch (e) {
-      print('error: $e');
+      print('Error: $e\n');
       return false;
     }
   }
-
-  // void removePasswordByReference(Password targetPassword) {
-  //   for (Password password in passwords) {
-  //     if (password.password == targetPassword.password) {
-  //       passwords.remove(password);
-  //       print('Password $password removed successfully');
-  //       return;
-  //     }
-  //   }
-  //
-  //   print('No password $password was found for user $username');
-  // }
 
   // return an User if the user exists, otherwise returns null
   static User? checkIfUserExists(String username, List<User> users) {

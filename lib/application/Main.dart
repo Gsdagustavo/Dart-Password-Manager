@@ -11,11 +11,10 @@ User? loggedUser;
 // main function
 void main() {
   bool exit = false;
-  User testUser = User('test123', 'test123');
-  users.add(testUser);
-  loggedUser = testUser;
-
-  testUser.addNewPassword(Password('test123'));
+  User usr = User('Gsdagustavo', 'Rg5475715');
+  loggedUser = usr;
+  Password pwd = Password('Rg547571856g');
+  usr.addNewPassword(pwd);
 
   // main loop
   do {
@@ -64,17 +63,7 @@ void main() {
 
           // add tags to the password
           if (input == 'y') {
-            while (true) {
-              // stdout.write('Enter a tag (empty space to exit): ');
-              String? tag = Input.getTagInput();
-
-              if (tag == ' ' || tag == null) {
-                break;
-              } else {
-                password.addTag(tag);
-              }
-
-            }
+            addTag(password);
           }
 
           print('\nPassword added successfully!\n');
@@ -83,17 +72,20 @@ void main() {
         case '2':
 
           print('=-=-=-=-=- SHOWING ALL PASSWORDS =-=-=-=-=-:\n');
-          if (loggedUser!.passwords.length == 0) {
-            print('No passwords found for user $loggedUser');
-            break;
-          }
+          // if (loggedUser!.passwords.length == 0) {
+          //   print('No passwords found for user $loggedUser\n');
+          //   break;
+          // }
+          //
+          // List<Password>? passwords = loggedUser?.passwords;
+          // if (passwords != null) {
+          //   for (Password password in passwords) {
+          //     print(password);
+          //   }
+          // }
 
-          List<Password>? passwords = loggedUser?.passwords;
-          if (passwords != null) {
-            for (Password password in passwords) {
-              print(password);
-            }
-          }
+          loggedUser!.printPasswords();
+
           print('');
 
           break;
@@ -118,7 +110,7 @@ void main() {
         case '4':
 
           print('=-=-=-=-=- ADD TAGS =-=-=-=-=-');
-          if (loggedUser!.passwords == null) {
+          if (loggedUser!.passwords.isEmpty) {
             print('You don''t have any passwords stored!');
             break;
           }
@@ -140,10 +132,10 @@ void main() {
             break;
           }
 
-          // if ((input <= 0) || (input > loggedUser!.passwords.length)) {
-          //   print('Invalid password');
-          //   break;
-          // }
+          if ((input <= 0) || (input > loggedUser!.passwords.length)) {
+            print('Invalid password');
+            break;
+          }
 
           if (!loggedUser!.passwords.contains(password)) {
             print('invalid password');
@@ -156,16 +148,8 @@ void main() {
             print('error: $e');
           }
 
-          while (true) {
-            // stdout.write('Enter a tag (empty space to exit): ');
-            String? tag = Input.getTagInput();
-
-            if (tag == ' ' || tag == null) {
-              break;
-            } else {
-              password.addTag(tag);
-            }
-          }
+          addTag(password);
+          print('');
 
           break;
 
@@ -275,4 +259,17 @@ void main() {
   } while (!exit);
 
   print('\nThank you for using my program!\n');
+}
+
+void addTag(Password password) {
+  while (true) {
+    // stdout.write('Enter a tag (empty space to exit): ');
+    String? tag = Input.getTagInput();
+
+    if (tag == ' ' || tag == null) {
+      break;
+    } else {
+      password.addTag(tag);
+    }
+  }
 }
